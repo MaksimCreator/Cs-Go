@@ -1,4 +1,4 @@
-﻿public class CompositRootPhysics : CompositRoot
+﻿public class PhysicsCompositRoot : CompositRoot
 {
     public PhysicsRouter Router { get; private set;}
 

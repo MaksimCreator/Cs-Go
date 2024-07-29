@@ -61,6 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2023.2.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Source\CompositRoot\PhysicsCompositRoot.cs" />
     <Compile Include="Assets\Source\Model\Constant.cs" />
     <Compile Include="Assets\Source\Model\Interface\IPosition.cs" />
     <Compile Include="Assets\Source\Model\Entity\Terrorist.cs" />
@@ -71,14 +72,13 @@
     <Compile Include="Assets\Source\View\Factory\BulletViewFactory.cs" />
     <Compile Include="Assets\Source\Model\Interface\IWeaponVisiter.cs" />
     <Compile Include="Assets\Source\Model\Item\Weapon\HeavyWeapons.cs" />
-    <Compile Include="Assets\Source\CompositRoot\CompositRootPhysics.cs" />
     <Compile Include="Assets\Source\Model\Interface\ISpeed.cs" />
     <Compile Include="Assets\Source\Model\Exception.cs" />
     <Compile Include="Assets\Source\Model\Item\Weapon\Weapon.cs" />
     <Compile Include="Assets\Source\Input\Input.cs" />
     <Compile Include="Assets\Source\Model\Animator\AnimatorEntity.cs" />
     <Compile Include="Assets\Source\View\FSM\Player\PlayerFsmStateMovement.cs" />
-    <Compile Include="Assets\Source\Model\Entity\PLayer.cs" />
+    <Compile Include="Assets\Source\Model\TypeEntity.cs" />
     <Compile Include="Assets\Source\Model\Interface\IDirectionBullet.cs" />
     <Compile Include="Assets\Source\View\FSM\Player\FsmStateAttack.cs" />
     <Compile Include="Assets\Source\Model\Health.cs" />
@@ -86,19 +86,20 @@
     <Compile Include="Assets\Source\Model\Spawner\SpawnerEntity.cs" />
     <Compile Include="Assets\Source\Model\InventaryPlayer.cs" />
     <Compile Include="Assets\Source\Model\Item\Weapon\Gun.cs" />
-    <Compile Include="Assets\Source\Model\Spawner\Spawner.cs" />
     <Compile Include="Assets\Source\Controller\PlayerMoveController.cs" />
     <Compile Include="Assets\Source\Model\Spawner\SpawnerWeapon.cs" />
     <Compile Include="Assets\Source\Model\PoolObject.cs" />
     <Compile Include="Assets\Source\Model\Entity\Entity.cs" />
     <Compile Include="Assets\Source\Model\Interface\IMove.cs" />
     <Compile Include="Assets\Source\CompositRoot\AICompositRootRoot.cs" />
+    <Compile Include="Assets\Source\View\FSM\Player\PlayerFsmStateAttack.cs" />
     <Compile Include="Assets\Source\Model\CollisionsRecord.cs" />
     <Compile Include="Assets\Source\Model\PlayerMovement.cs" />
     <Compile Include="Assets\Source\View\Factory\EntityViewFactory.cs" />
     <Compile Include="Assets\Source\View\Factory\WeaponViewFactory.cs" />
     <Compile Include="Assets\Source\Model\Entity\ContorTerrorist.cs" />
     <Compile Include="Assets\Source\Model\Item\Weapon\Digle.cs" />
+    <Compile Include="Assets\Source\Model\Spawner\SpawnerBullet.cs" />
     <Compile Include="Assets\Source\Model\Item\Weapon\Ak47.cs" />
     <Compile Include="Assets\Source\Controller\AIController.cs" />
     <Compile Include="Assets\Source\View\FSM\Player\PlayerFsmStateRotate.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Source\Model\Item\Weapon\Usp.cs" />
     <Compile Include="Assets\Source\View\FSM\Player\PlayerFsmStateRollbeck.cs" />
     <Compile Include="Assets\Source\Presenter\WeaponPresenter.cs" />
+    <Compile Include="Assets\Source\View\PartBody.cs" />
     <Compile Include="Assets\Source\Input\InputRouter.cs" />
     <Compile Include="Assets\Source\Input\InputPlayerAttack.cs" />
     <Compile Include="Assets\Source\Model\PhysicsRouter.cs" />

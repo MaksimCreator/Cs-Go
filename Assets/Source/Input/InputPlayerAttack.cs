@@ -12,8 +12,8 @@ public class InputPlayerAttack
     public void Update(bool isShoot)
     {
         if (_fsmWeapon.IsState<FsmStateIdelWeapon>() && isShoot)
-            _fsmWeapon.SetState<FsmStateAttack>();
-        else if (_fsmWeapon.IsState<FsmStateAttack>())
+            _fsmWeapon.SetState<PlayerFsmStateAttack>();
+        else if (_fsmWeapon.IsState<PlayerFsmStateAttack>())
             _fsmWeapon.SetState<FsmStateIdelWeapon>();
 
        _fsmWeapon.Update();
@@ -21,7 +21,7 @@ public class InputPlayerAttack
 
     public void Rollbeck()
     {
-        if(_fsmWeapon.IsState<FsmStateIdelWeapon>() ||  _fsmWeapon.IsState<FsmStateAttack>())
+        if(_fsmWeapon.IsState<FsmStateIdelWeapon>() ||  _fsmWeapon.IsState<PlayerFsmStateAttack>())
             _fsmWeapon.SetState<PlayerFsmStateRollbeck>();
     }
 

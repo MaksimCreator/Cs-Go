@@ -5,13 +5,16 @@ public class WeaponPresenter
 {
     private readonly Inventary _inventary;
     private readonly SpawnerBullet _spawner;
+    private readonly IDirectionBullet _entity;
 
     public int CurentBullet { get; private set; }
     public int AllBullet { get; private set; }
 
-    public WeaponPresenter(Inventary inventary)
+    public WeaponPresenter(Inventary inventary,SpawnerBullet spawner, IDirectionBullet entity)
     {
         _inventary = inventary;
+        _spawner = spawner;
+        _entity = entity;
     }
 
     public Transform GetPositionMuzzleWeapon()
@@ -23,17 +26,20 @@ public class WeaponPresenter
 
     public void Shoot(Vector3 position)
     {
-        _spawner.Enable(position);
-
         if (_inventary.CurentWeapon is Weapon weapon)
         {
             weapon.Shoot();
             CurentBullet--;
+            _spawner.Enable(position,_entity.Direction);
+            return;
         }
         else if (_inventary.CurentWeapon is Knife knife)
         {
             knife.Attack();
+            return;
         }
+
+        throw new InvalidOperationException();
     }
 
     public void Rollbeck()
@@ -53,8 +59,13 @@ public class WeaponPresenter
             AllBullet = weapon.AllBullet;
             return;
         }
+        else if (_inventary.CurentWeapon is Knife)
+        {
+            CurentBullet = 0;
+            AllBullet = 0;
+            return;
+        }
 
-        CurentBullet = 0;
-        AllBullet = 0;
+        throw new InvalidOperationException();
     }
 }

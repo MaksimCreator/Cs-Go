@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class Gun : Weapon
 {
-    protected Gun(Action activeRollbeck,AnimatorOverrideController controller, float speed, float damage, int allBullet, int maxBullet) : base(activeRollbeck,controller, speed, damage, allBullet, maxBullet) { }
+    protected Gun(Action activeRollbeck, Transform muzzelPosition, ParticleSystem effectShoot, AudioSource audioShoot, AnimatorOverrideController controller, int allBullet, int maxBullet, float speed) : base(activeRollbeck, muzzelPosition, effectShoot, audioShoot, controller, allBullet, maxBullet, speed) { }
 }

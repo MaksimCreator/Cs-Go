@@ -6,14 +6,12 @@ public class Bullet
     public const int Damage = 100;
 
     private Rigidbody _rbBullet;
-    private IDirectionBullet _directionBullet;
 
-    public void Init(Rigidbody rbBullet,IDirectionBullet directionBullet)
+    public void Init(Rigidbody rbBullet)
     {
         _rbBullet = rbBullet;
-        _directionBullet = directionBullet;
     }
 
-    public void AddForceBullet()
-    => _rbBullet.AddForce(_directionBullet.Direction * SpeedBullet);
+    public void AddForceBullet(Vector3 direction)
+    => _rbBullet.AddForce(direction * SpeedBullet);
 }

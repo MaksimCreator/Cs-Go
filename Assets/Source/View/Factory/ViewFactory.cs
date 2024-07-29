@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class ViewFactory<T> : MonoBehaviour where T : class
 {
-    [SerializeField] private CompositRootPhysics _physics;
+    [SerializeField] private PhysicsCompositRoot _physics;
 
     private Dictionary<T, GameObject> _views = new();
 
-    public void Creat(Transform parent, T model, Action<T,GameObject> AddObjectInPool = null, bool JoinModelToParent = false)
+    public void Creat(Transform parent, T model, Action<T,GameObject> Action = null, bool JoinModelToParent = false)
     {
         GameObject prefab = Instantiate(GetTemplay(model), GetPosition(parent.position),GetRotation(parent.rotation));
-        AddObjectInPool?.Invoke(model,prefab);
         _views.Add(model, prefab);
+        Action?.Invoke(model,prefab);
 
         if(JoinModelToParent)
             prefab.transform.parent = parent;

@@ -5,21 +5,19 @@ public class SpawnerBullet : PoolObject<Bullet>
 {
     private readonly BulletViewFactory _factory;
     private readonly WeaponPresenter _presenter;
-    private readonly IDirectionBullet _direction;
 
-    public SpawnerBullet(BulletViewFactory factroy, WeaponPresenter presenter, IDirectionBullet direction,int lengch)
+    public SpawnerBullet(BulletViewFactory factroy, WeaponPresenter presenter,int lengch)
     {
         _factory = factroy;
         _presenter = presenter;
-        _direction = direction;
-
+    
         InitPool(lengch);
     }
 
-    public new void Enable(Vector3 position)
+    public void Enable(Vector3 position,Vector3 direction)
     {
-        Bullet bullet = base.Enable(position);
-        bullet.AddForceBullet();
+        Bullet bullet = Enable(position);
+        bullet.AddForceBullet(direction);
     }
 
     private void InitPool(int lengch)
@@ -35,7 +33,7 @@ public class SpawnerBullet : PoolObject<Bullet>
             if (prefab.TryGetComponent(out Rigidbody rb) == false)
                 throw new InvalidOperationException();
 
-            model.Init(rb, _direction);
+            model.Init(rb);
             AddObject(model, prefab);
         });
     }
