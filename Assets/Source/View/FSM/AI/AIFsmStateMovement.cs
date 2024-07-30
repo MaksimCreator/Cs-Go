@@ -13,7 +13,7 @@ public class AIFsmStateMovement : FsmState
     }
 
     public override void Enter()
-    => Animator.EnterMove();
+    => Animator.Move();
 
     public override void Update()
     {

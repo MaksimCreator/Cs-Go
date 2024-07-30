@@ -1,20 +1,21 @@
 using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class WeaponPresenter
 {
     private readonly Inventary _inventary;
     private readonly SpawnerBullet _spawner;
-    private readonly IDirectionBullet _entity;
+
+    private Tween _recoilCamera;
 
     public int CurentBullet { get; private set; }
     public int AllBullet { get; private set; }
 
-    public WeaponPresenter(Inventary inventary,SpawnerBullet spawner, IDirectionBullet entity)
+    public WeaponPresenter(Inventary inventary,SpawnerBullet spawner)
     {
         _inventary = inventary;
         _spawner = spawner;
-        _entity = entity;
     }
 
     public Transform GetPositionMuzzleWeapon()
@@ -24,13 +25,36 @@ public class WeaponPresenter
         throw new InvalidOperationException();
     }
 
-    public void Shoot(Vector3 position)
+    public void ApplayRecoil(Camera camera,float cooldown)
     {
-        if (_inventary.CurentWeapon is Weapon weapon)
+        if (camera == null)
+            return;
+
+        if (_inventary.CurentWeapon is Weapon weapon == false)
+            return;
+
+        _recoilCamera = CameraRecoil.GetRecoil(camera,cooldown,weapon.ShakeIntensity);
+        _recoilCamera.SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+    }
+
+    public void StopRecoil()
+    {
+        if (_recoilCamera == null)
+            return;
+
+        if(_inventary.CurentWeapon is Weapon weapon)
+            weapon.StopRecoil();
+
+        _recoilCamera.Kill();
+    }
+
+    public void Shoot()
+    {
+        if (_inventary.CurentWeapon is Weapon weapon) 
         {
             weapon.Shoot();
             CurentBullet--;
-            _spawner.Enable(position,_entity.Direction);
+            _spawner.Enable(GetPositionMuzzleWeapon().position,weapon.GetDirectionBullet());
             return;
         }
         else if (_inventary.CurentWeapon is Knife knife)

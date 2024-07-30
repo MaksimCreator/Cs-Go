@@ -9,7 +9,7 @@ public class FsmStateSwithGun : FsmState
 
     public override void Enter()
     {
-        Animator.EnterSwithGun(_inventary.OverrideController);
+        Animator.SwithGun(_inventary.OverrideController);
         Timer.StartTimer(Animator.GetLenghAnimationSwithGun(_inventary.OverrideController), () =>
         {
             _inventary.SwithWeapon();

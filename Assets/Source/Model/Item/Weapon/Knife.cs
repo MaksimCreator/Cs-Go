@@ -12,5 +12,5 @@ public sealed class Knife : Item
     }
 
     public void Attack()
-    => _animator.EnterAttack();
+    => _animator.Attack();
 }

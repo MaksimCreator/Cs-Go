@@ -11,25 +11,25 @@ public class AnimatorEntity
         _animator = animator;
     }
 
-    public void EnterIdelWeapon()
+    public void IdelWeapon()
     => StartAnimation(AnimatorConstant.IdelWeapon, Constant.LayerAttack);
 
-    public void EnterMove()
+    public void Move()
     => StartAnimation(AnimatorConstant.Move,Constant.LayerMove);
 
-    public void EnterRollbeck() 
+    public void Rollbeck() 
     => StartAnimation(AnimatorConstant.Rollbeck, Constant.LayerAttack);
 
-    public void EnterIdel() 
+    public void Idel() 
     => StartAnimation(AnimatorConstant.Idel,Constant.LayerMove);
 
-    public void EnterAttack()
+    public void Attack()
     => StartAnimation(AnimatorConstant.Attack, Constant.LayerAttack);
 
-    public void EnterJump()
+    public void Jump()
     => StartAnimation(AnimatorConstant.Jump,Constant.LayerMove);
 
-    public void EnterSwithGun(AnimatorOverrideController controller)
+    public void SwithGun(AnimatorOverrideController controller)
     {
         StartAnimation(AnimatorConstant.SwithGunExit, Constant.LayerAttack);
 

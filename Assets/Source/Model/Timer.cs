@@ -15,7 +15,7 @@ public class Timer
             .Subscribe(_ =>
             {
                 onEnd?.Invoke();
-                disposables.Clear();
+                disposables.Dispose();
             }).AddTo(disposables);
 
         return disposables;
@@ -41,7 +41,7 @@ public class Timer
 
     public float GetTime()
     {
-        _time.Clear();
+        _time.Dispose();
         float time = ElapsedTime;
         ElapsedTime = 0f;
         return time;

@@ -7,7 +7,6 @@ public class Inventary
     private int _numberWeapon;
     public Item CurentWeapon { get; private set; }
 
-
     public Inventary(Knife knife,Gun gun,HeavyWeapons weapon)
     {
         _weapons[0] = knife;

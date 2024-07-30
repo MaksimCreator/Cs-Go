@@ -12,7 +12,7 @@ public class PlayerFsmStateRollbeck : FsmState
 
     public override void Enter()
     {
-        Animator.EnterRollbeck();
+        Animator.Rollbeck();
         _disposables = Timer.StartTimer(Animator.GetLenghAnimationRollbeck(), () => 
         {
             _weapon.Rollbeck();

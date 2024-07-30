@@ -1,4 +1,5 @@
 using UniRx;
+using UnityEngine;
 
 public class FsmStateAttack : FsmState
 {
@@ -10,14 +11,22 @@ public class FsmStateAttack : FsmState
     public FsmStateAttack(Fsm fsm, AnimatorEntity animator,WeaponPresenter presenter,float cooldown) : base(fsm, animator)
     {
         _presenter = presenter;
+        _cooldown = cooldown;
     }
 
     public override void Enter()
     {
-        Animator.EnterAttack();
-        _disposable = Timer.StartInfiniteTimer(_cooldown, () => _presenter.Shoot(_presenter.GetPositionMuzzleWeapon().position));
+        _presenter.Shoot();
+        _presenter.ApplayRecoil(GetCamera(),_cooldown);
+        _disposable = Timer.StartInfiniteTimer(_cooldown, () => _presenter.Shoot());
     }
 
     public override void Exit()
-    => _disposable.Clear();
+    {
+        _disposable.Dispose();
+        _presenter.StopRecoil();
+    }
+
+    protected virtual Camera GetCamera() 
+    => null;
 }

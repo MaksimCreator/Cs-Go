@@ -14,7 +14,7 @@ public class PlayerFsmStateMovement : FsmState
     }
 
     public override void Enter()
-    => Animator.EnterMove();
+    => Animator.Move();
 
     public override void Update()
     => _controller.Move(_playerMovement.Direction);

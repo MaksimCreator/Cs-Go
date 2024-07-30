@@ -1,21 +1,14 @@
-﻿public class PlayerFsmStateAttack : FsmStateAttack
+﻿using UnityEngine;
+
+public class PlayerFsmStateAttack : FsmStateAttack
 {
-    private readonly CameraRecoil _cameraRecoil;
+    private readonly Camera _player;
 
-    public PlayerFsmStateAttack(Fsm fsm, AnimatorEntity animator, WeaponPresenter presenter,CameraRecoil recoiil, float cooldown) : base(fsm, animator, presenter, cooldown)
+    public PlayerFsmStateAttack(Fsm fsm, AnimatorEntity animator, WeaponPresenter presenter,Camera playre, float cooldown) : base(fsm, animator, presenter, cooldown)
     {
-        _cameraRecoil = recoiil;
+        _player = playre;
     }
 
-    public override void Enter()
-    {
-        _cameraRecoil.StartRecoil();
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        _cameraRecoil.StopRecoil();
-        base.Exit();
-    }
+    protected override Camera GetCamera()
+    => _player;
 }

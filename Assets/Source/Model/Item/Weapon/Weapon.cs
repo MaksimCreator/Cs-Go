@@ -1,35 +1,15 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class CameraRecoil
-{
-    private readonly Camera _camera;
-    private readonly List<Vector3> _way;
-    private readonly float _speed;
-
-    public CameraRecoil(Camera camera, List<Vector3> way, float speed)
-    {
-        _camera = camera;
-        _way = way;
-        _speed = speed;
-    }
-
-    public void StartRecoil()
-    {
-
-    }
-
-    public void StopRecoil()
-    {
-
-    }
-}
 public abstract class Weapon : Item
 {
     private const int _minBullet = 0;
 
     public readonly Transform MusselPosition;
+    public readonly float ShakeIntensity;
+
+    private readonly RecoilWeapon _recoil;
     private readonly ParticleSystem _efectShoot;
     private readonly AudioSource _audioShoot;
     private readonly Action _activeRollbeck;
@@ -42,15 +22,21 @@ public abstract class Weapon : Item
 
     private bool _isShoot => CurentBullet > _minBullet;
 
-    protected Weapon(Action activeRollbeck,Transform muzzelPosition,ParticleSystem effectShoot,AudioSource audioShoot, AnimatorOverrideController controller, int allBullet, int maxBullet, float speed) : base(controller, speed)
+    protected Weapon(List<Vector3> wayRecoilWeapon,Action activeRollbeck,Transform muzzelPosition,ParticleSystem effectShoot,AudioSource audioShoot, AnimatorOverrideController controller, int allBullet, int maxBullet,float shakeIntensity, float speed) : base(controller, speed)
     {
+        if (wayRecoilWeapon.Count != maxBullet)
+            throw new InvalidOperationException(nameof(wayRecoilWeapon.Count));
+
         _activeRollbeck = activeRollbeck;
-        MusselPosition = muzzelPosition;
         _efectShoot = effectShoot;
         _audioShoot = audioShoot;
         _maxBullet = maxBullet;
+        MusselPosition = muzzelPosition;
+        ShakeIntensity = shakeIntensity;
         CurentBullet = maxBullet;
         AllBullet = allBullet;
+
+        _recoil = new RecoilWeapon(MusselPosition,wayRecoilWeapon);
     }
 
     public void Shoot()
@@ -92,4 +78,10 @@ public abstract class Weapon : Item
 
         _isRollbeck = false;
     }
+
+    public void StopRecoil()
+    => _recoil.RestarRecoil();
+
+    public Vector3 GetDirectionBullet()
+    => _recoil.GetDirection();
 }

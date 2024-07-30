@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : IMove, IRotate,IPosition
+public class PlayerMovement : IMove, IRotate
 {
+    #region Variables
+
+    private const int TimeWithoutDamage = 1;
+    private const int ConvertTimeInDamage = 100;
+
+    private readonly Timer _timer = new();
     private readonly Transform _camera;
     private readonly Transform _player;
     private readonly CharacterController _controller;
     private readonly ISpeed _playerPresenter;
+    private readonly Health _playerHealth;
     private readonly float _gravety;
     private readonly float _powerJump;
     private readonly float _sliderForce;
@@ -16,7 +23,10 @@ public class PlayerMovement : IMove, IRotate,IPosition
     private Vector3 _direction;
     private Vector2 _rotation;
 
-    public Vector3 Position => _player.position;
+    #endregion
+
+    #region property
+
     public Vector3 Direction 
     {
         get
@@ -36,11 +46,14 @@ public class PlayerMovement : IMove, IRotate,IPosition
         }
     }
 
-    public PlayerMovement(Camera cameraPlayer,CharacterController controller,InventaryPresenter playerInventary, float gravety, float slopeForce,float powerJump,float maxRotation,float minRotation)
+    #endregion
+
+    public PlayerMovement(Camera cameraPlayer,CharacterController controller,InventaryPresenter playerInventary,Health playerHealth, float gravety, float slopeForce,float powerJump,float maxRotation,float minRotation)
     {
         _camera = cameraPlayer.transform;
         _player = controller.transform;
         _playerPresenter = playerInventary;
+        _playerHealth = playerHealth;
         _gravety = gravety;
         _sliderForce = slopeForce;
         _powerJump = powerJump;
@@ -72,7 +85,17 @@ public class PlayerMovement : IMove, IRotate,IPosition
         Exception.TryValueIsInvalideit(delta);
 
         if (_controller.isGrounded == false)
+        {
+            _timer.StartTimer();
             _direction -= Vector3.down * _gravety * delta;
+        }
+        else
+        {
+            float time = _timer.GetTime() - TimeWithoutDamage;
+
+            if (time > 0)
+                _playerHealth.TakeDamage((int)(time * ConvertTimeInDamage));
+        }
     }
 
     public void Slider(float delta)
